@@ -3,6 +3,7 @@ package br.com.compass.eventmanagement.controllers;
 import br.com.compass.eventmanagement.domain.event.Event;
 import br.com.compass.eventmanagement.domain.event.dtos.EventRequestDto;
 import br.com.compass.eventmanagement.domain.event.dtos.EventResponseDto;
+import br.com.compass.eventmanagement.domain.event.dtos.EventUpdateRequestDto;
 import br.com.compass.eventmanagement.domain.event.mapper.EventMapper;
 import br.com.compass.eventmanagement.services.EventService;
 import jakarta.validation.Valid;
@@ -54,5 +55,13 @@ public class EventController {
         List<EventResponseDto> responseList = EventMapper.toListDto(eventList);
         log.info("All events sorted recovered successfully. listSize: {}", responseList.size());
         return ResponseEntity.ok().body(responseList);
+    }
+
+    @PutMapping("/update-event/{id}")
+    public ResponseEntity<Void> update(@PathVariable("id") String id, @RequestBody @Valid EventUpdateRequestDto request){
+        log.info("Request to update event: id: {}", id);
+        eventService.update(id, request);
+        log.info("Event updated successfully. id: {}", id);
+        return ResponseEntity.noContent().build();
     }
 }

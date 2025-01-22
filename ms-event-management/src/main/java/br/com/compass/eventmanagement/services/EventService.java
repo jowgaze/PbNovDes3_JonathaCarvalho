@@ -3,6 +3,7 @@ package br.com.compass.eventmanagement.services;
 import br.com.compass.eventmanagement.domain.address.Address;
 import br.com.compass.eventmanagement.domain.event.Event;
 import br.com.compass.eventmanagement.domain.event.dtos.EventRequestDto;
+import br.com.compass.eventmanagement.domain.event.dtos.EventUpdateRequestDto;
 import br.com.compass.eventmanagement.domain.event.mapper.EventMapper;
 import br.com.compass.eventmanagement.exceptions.EventNotFoundException;
 import br.com.compass.eventmanagement.repositories.EventRespository;
@@ -22,10 +23,10 @@ public class EventService {
     private final AddressService addressService;
 
     @Transactional
-    public Event insert(EventRequestDto body) {
-        String zipCode = body.getZipCode();
+    public Event insert(EventRequestDto request) {
+        String zipCode = request.getZipCode();
         Address address = addressService.findById(zipCode);
-        Event event = EventMapper.toEntity(body, address);
+        Event event = EventMapper.toEntity(request, address);
         return eventRespository.insert(event);
     }
 
@@ -48,5 +49,23 @@ public class EventService {
         Sort sort = Sort.by("name");
         sort = direction.equals("desc") ? sort.descending() : sort.ascending();
         return eventRespository.findAll(sort);
+    }
+
+    @Transactional
+    public void update(String id, EventUpdateRequestDto request) {
+        Event event = findById(id);
+
+        if (request.getName() != null)
+            event.setName(request.getName());
+
+        if (request.getDateTime() != null)
+            event.setDate(request.getDateTime());
+
+        if (request.getZipCode() != null) {
+            Address address = addressService.findById(request.getZipCode());
+            event.setAddress(address);
+        }
+
+        eventRespository.save(event);
     }
 }
