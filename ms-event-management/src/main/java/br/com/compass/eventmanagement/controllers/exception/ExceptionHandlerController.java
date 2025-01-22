@@ -1,5 +1,6 @@
 package br.com.compass.eventmanagement.controllers.exception;
 
+import br.com.compass.eventmanagement.exceptions.EventNotFoundException;
 import br.com.compass.eventmanagement.exceptions.FeignNotFoundException;
 import br.com.compass.eventmanagement.exceptions.FeignRequestException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,8 +24,8 @@ public class ExceptionHandlerController {
                 .body(new StandardError(request, HttpStatus.UNPROCESSABLE_ENTITY, message, br));
     }
 
-    @ExceptionHandler(FeignNotFoundException.class)
-    public ResponseEntity<StandardError> feignNotFoundException(RuntimeException e, HttpServletRequest request){
+    @ExceptionHandler({FeignNotFoundException.class, EventNotFoundException.class})
+    public ResponseEntity<StandardError> notFoundException(RuntimeException e, HttpServletRequest request){
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)

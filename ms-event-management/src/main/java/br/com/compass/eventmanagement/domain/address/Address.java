@@ -1,6 +1,7 @@
 package br.com.compass.eventmanagement.domain.address;
 
 import br.com.compass.eventmanagement.services.client.viacep.ViaCepResponse;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,6 +15,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@JsonIgnoreProperties({"target", "source"})
 public class Address implements Serializable {
     @Id
     private String zipCode;
