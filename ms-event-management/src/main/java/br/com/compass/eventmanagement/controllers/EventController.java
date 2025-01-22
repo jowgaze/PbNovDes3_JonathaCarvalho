@@ -46,4 +46,13 @@ public class EventController {
         log.info("All events recovered successfully. listSize: {}", responseList.size());
         return ResponseEntity.ok().body(responseList);
     }
+
+    @GetMapping("/get-all-events/sorted")
+    public ResponseEntity<List<EventResponseDto>> findAllSorted(@RequestParam(defaultValue = "asc") String direction){
+        log.info("Request to get all events sorted");
+        List<Event> eventList = eventService.findAllSorted(direction);
+        List<EventResponseDto> responseList = EventMapper.toListDto(eventList);
+        log.info("All events sorted recovered successfully. listSize: {}", responseList.size());
+        return ResponseEntity.ok().body(responseList);
+    }
 }

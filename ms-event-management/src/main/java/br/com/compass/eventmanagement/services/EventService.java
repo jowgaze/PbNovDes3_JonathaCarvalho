@@ -8,6 +8,7 @@ import br.com.compass.eventmanagement.exceptions.EventNotFoundException;
 import br.com.compass.eventmanagement.repositories.EventRespository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +39,14 @@ public class EventService {
     }
 
     @Transactional(readOnly = true)
-    public List<Event> findAll(){
+    public List<Event> findAll() {
         return eventRespository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Event> findAllSorted(String direction) {
+        Sort sort = Sort.by("name");
+        sort = direction.equals("desc") ? sort.descending() : sort.ascending();
+        return eventRespository.findAll(sort);
     }
 }
