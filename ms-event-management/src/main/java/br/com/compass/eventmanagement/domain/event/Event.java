@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Document(collection = "event")
 @NoArgsConstructor
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Event implements Serializable {
     @Id
     private String id;
@@ -28,4 +30,16 @@ public class Event implements Serializable {
     @DBRef(lazy = true)
     @NonNull
     private Address address;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(id, event.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

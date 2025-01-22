@@ -1,10 +1,7 @@
 package br.com.compass.eventmanagement.domain.event.dtos;
 
 import br.com.compass.eventmanagement.domain.address.Address;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +9,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class EventResponseDto {
     private String id;
     private String name;

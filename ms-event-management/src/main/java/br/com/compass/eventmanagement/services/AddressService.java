@@ -8,9 +8,11 @@ import br.com.compass.eventmanagement.services.client.viacep.ViaCepClient;
 import br.com.compass.eventmanagement.services.client.viacep.ViaCepResponse;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AddressService {
@@ -30,12 +32,15 @@ public class AddressService {
         try {
             ViaCepResponse response = viaCepClient.getViaCep(zipCode);
 
-            if (response.getErro() != null)
+            if (response.getErro() != null) {
+                log.error("Address not found. zipCode: {}", zipCode);
                 throw new FeignNotFoundException("address not found");
+            }
 
             Address address = new Address(response);
             return addressRepository.insert(address);
         } catch (FeignException.BadRequest e) {
+            log.error("No lost letters or white space. zipCode: {}", zipCode);
             throw new FeignRequestException("invalid fields: only numbers");
         }
     }
