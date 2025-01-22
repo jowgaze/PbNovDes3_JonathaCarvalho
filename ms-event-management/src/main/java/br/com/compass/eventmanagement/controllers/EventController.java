@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/br/com/compass/eventmanagement/v1")
@@ -34,5 +36,14 @@ public class EventController {
         EventResponseDto response = EventMapper.toDto(event);
         log.info("Event found: {}", response);
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/get-all-events")
+    public ResponseEntity<List<EventResponseDto>> findAll(){
+        log.info("Request to get all events");
+        List<Event> eventList = eventService.findAll();
+        List<EventResponseDto> responseList = EventMapper.toListDto(eventList);
+        log.info("All events recovered successfully. listSize: {}", responseList.size());
+        return ResponseEntity.ok().body(responseList);
     }
 }

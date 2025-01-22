@@ -7,6 +7,8 @@ import br.com.compass.eventmanagement.domain.event.dtos.EventResponseDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
+import java.util.List;
+
 public class EventMapper {
 
     public static Event toEntity(EventRequestDto dto, Address address){
@@ -24,5 +26,9 @@ public class EventMapper {
 
     public static EventResponseDto toDto(Event entity){
         return new ModelMapper().map(entity, EventResponseDto.class);
+    }
+
+    public static List<EventResponseDto> toListDto(List<Event> eventList){
+        return eventList.stream().map(EventMapper::toDto).toList();
     }
 }

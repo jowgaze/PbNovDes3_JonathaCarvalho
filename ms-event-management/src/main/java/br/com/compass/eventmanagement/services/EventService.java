@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -33,5 +35,10 @@ public class EventService {
                     log.error("Event not found. id: {}", id);
                     return new EventNotFoundException("event not found");
                 });
+    }
+
+    @Transactional(readOnly = true)
+    public List<Event> findAll(){
+        return eventRespository.findAll();
     }
 }
