@@ -64,4 +64,12 @@ public class EventController {
         log.info("Event updated successfully. id: {}", id);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/delete-event/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") String id){
+        log.info("Request to delete event. id: {}", id);
+        eventService.delete(id);
+        log.info("event deleted successfully");
+        return ResponseEntity.noContent().build();
+    }
 }

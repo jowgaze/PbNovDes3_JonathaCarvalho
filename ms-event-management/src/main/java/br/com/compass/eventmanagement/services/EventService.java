@@ -68,4 +68,10 @@ public class EventService {
 
         eventRespository.save(event);
     }
+
+    @Transactional
+    public void delete(String id){
+        Event event = findById(id);
+        eventRespository.delete(event);
+    }
 }
