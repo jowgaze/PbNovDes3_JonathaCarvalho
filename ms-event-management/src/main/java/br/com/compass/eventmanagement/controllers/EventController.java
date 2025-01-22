@@ -31,8 +31,8 @@ public class EventController {
     }
 
     @GetMapping("/get-event/{id}")
-    public ResponseEntity<EventResponseDto> findById(@PathVariable("id") String id){
-        log.info("Request to get event by id: {}", id);
+    public ResponseEntity<EventResponseDto> findById(@PathVariable("id") String id) {
+        log.info("Request to get event. id: {}", id);
         Event event = eventService.findById(id);
         EventResponseDto response = EventMapper.toDto(event);
         log.info("Event found: {}", response);
@@ -40,7 +40,7 @@ public class EventController {
     }
 
     @GetMapping("/get-all-events")
-    public ResponseEntity<List<EventResponseDto>> findAll(){
+    public ResponseEntity<List<EventResponseDto>> findAll() {
         log.info("Request to get all events");
         List<Event> eventList = eventService.findAll();
         List<EventResponseDto> responseList = EventMapper.toListDto(eventList);
@@ -49,7 +49,7 @@ public class EventController {
     }
 
     @GetMapping("/get-all-events/sorted")
-    public ResponseEntity<List<EventResponseDto>> findAllSorted(@RequestParam(defaultValue = "asc") String direction){
+    public ResponseEntity<List<EventResponseDto>> findAllSorted(@RequestParam(defaultValue = "asc") String direction) {
         log.info("Request to get all events sorted");
         List<Event> eventList = eventService.findAllSorted(direction);
         List<EventResponseDto> responseList = EventMapper.toListDto(eventList);
@@ -58,15 +58,15 @@ public class EventController {
     }
 
     @PutMapping("/update-event/{id}")
-    public ResponseEntity<Void> update(@PathVariable("id") String id, @RequestBody @Valid EventUpdateRequestDto request){
-        log.info("Request to update event: id: {}", id);
+    public ResponseEntity<Void> update(@PathVariable("id") String id, @RequestBody @Valid EventUpdateRequestDto request) {
+        log.info("Request to update event. id: {}", id);
         eventService.update(id, request);
         log.info("Event updated successfully. id: {}", id);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/delete-event/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") String id){
+    public ResponseEntity<Void> delete(@PathVariable("id") String id) {
         log.info("Request to delete event. id: {}", id);
         eventService.delete(id);
         log.info("event deleted successfully");

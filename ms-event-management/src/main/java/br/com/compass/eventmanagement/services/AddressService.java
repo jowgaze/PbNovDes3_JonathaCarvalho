@@ -34,14 +34,14 @@ public class AddressService {
 
             if (response.getErro() != null) {
                 log.error("Address not found. zipCode: {}", zipCode);
-                throw new FeignNotFoundException("address not found");
+                throw new FeignNotFoundException(String.format("address with zipcode=%S not found", zipCode));
             }
 
             Address address = new Address(response);
             return addressRepository.insert(address);
         } catch (FeignException.BadRequest e) {
             log.error("No lost letters or white space. zipCode: {}", zipCode);
-            throw new FeignRequestException("invalid fields: only numbers");
+            throw new FeignRequestException("invalid fields - no lost letters or white space");
         }
     }
 

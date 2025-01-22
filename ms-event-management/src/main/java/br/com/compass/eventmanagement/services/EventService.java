@@ -35,7 +35,7 @@ public class EventService {
         return eventRespository.findById(id)
                 .orElseThrow(() -> {
                     log.error("Event not found. id: {}", id);
-                    return new EventNotFoundException("event not found");
+                    return new EventNotFoundException(String.format("event with id=%s not found", id));
                 });
     }
 
@@ -70,7 +70,7 @@ public class EventService {
     }
 
     @Transactional
-    public void delete(String id){
+    public void delete(String id) {
         Event event = findById(id);
         eventRespository.delete(event);
     }
