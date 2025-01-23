@@ -1,4 +1,4 @@
-package br.com.compass.eventmanagement.services.client.viacep;
+package br.com.compass.eventmanagement.services.client.viacep.dtos;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class ViaCepResponse {
+public class ViaCepResponseDto {
     private String cep;
     private String logradouro;
     private String complemento;

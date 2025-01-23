@@ -1,6 +1,6 @@
 package br.com.compass.eventmanagement.domain.address;
 
-import br.com.compass.eventmanagement.services.client.viacep.ViaCepResponse;
+import br.com.compass.eventmanagement.services.client.viacep.dtos.ViaCepResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -24,7 +24,7 @@ public class Address implements Serializable {
     private String locality;
     private String state;
 
-    public Address(ViaCepResponse viaCepResponse){
+    public Address(ViaCepResponseDto viaCepResponse){
         zipCode = viaCepResponse.getCep();
         street = viaCepResponse.getLogradouro();
         neighborhood = viaCepResponse.getBairro();

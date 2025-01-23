@@ -1,5 +1,6 @@
 package br.com.compass.eventmanagement.services.client.viacep;
 
+import br.com.compass.eventmanagement.services.client.viacep.dtos.ViaCepResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,5 +9,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ViaCepClient {
 
     @GetMapping("{cep}/json/")
-    ViaCepResponse getViaCep(@PathVariable String cep);
+    ViaCepResponseDto getViaCep(@PathVariable String cep);
 }
