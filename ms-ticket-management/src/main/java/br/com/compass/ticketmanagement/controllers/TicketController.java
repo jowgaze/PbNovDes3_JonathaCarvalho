@@ -54,4 +54,12 @@ public class TicketController {
         log.info("Ticket updated successfully. id: {}", id);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/cancel-ticket/{id}")
+    public ResponseEntity<Void> softDelete(@PathVariable("id") String id){
+        log.info("Request to cancel ticket. id: {}", id);
+        ticketService.softDelete(id);
+        log.info("ticket canceled successfully");
+        return ResponseEntity.noContent().build();
+    }
 }

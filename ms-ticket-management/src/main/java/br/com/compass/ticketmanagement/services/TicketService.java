@@ -69,13 +69,20 @@ public class TicketService {
         ticketRepository.save(ticket);
     }
 
+    @Transactional
+    public void softDelete(String id){
+        Ticket ticket = findById(id);
+        ticket.setDeleted(true);
+        ticketRepository.save(ticket);
+    }
+
 
     private String generateId() {
         return Long.toString(ticketRepository.count() + 1);
     }
 
     private Ticket findById(String id) {
-        return ticketRepository.findById(id)
+        return ticketRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> {
                     log.error("ticket not found. id: {}", id);
                     return new TicketNotFoundException(String.format("ticket with id=%s not found", id));
