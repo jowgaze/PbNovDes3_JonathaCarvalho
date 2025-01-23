@@ -37,7 +37,7 @@ public class TicketService {
 
     @Transactional(readOnly = true)
     public List<TicketResponseDto> findByCpf(String cpf) {
-        List<Ticket> ticketList = ticketRepository.findByCpf(cpf);
+        List<Ticket> ticketList = ticketRepository.findByCpfAndDeletedFalse(cpf);
 
         if (ticketList.isEmpty()) {
             log.error("ticket not found. cpf: {}", cpf);

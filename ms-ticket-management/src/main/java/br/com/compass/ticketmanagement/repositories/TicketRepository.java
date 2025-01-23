@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TicketRepository extends MongoRepository<Ticket, String> {
-    List<Ticket> findByCpf(String cpf);
-
     Optional<Ticket> findByIdAndDeletedFalse(String id);
+
+    List<Ticket> findByCpfAndDeletedFalse(String cpf);
 }
