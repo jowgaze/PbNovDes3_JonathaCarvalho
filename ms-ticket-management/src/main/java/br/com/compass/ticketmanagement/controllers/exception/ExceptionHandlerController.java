@@ -2,6 +2,7 @@ package br.com.compass.ticketmanagement.controllers.exception;
 
 import br.com.compass.ticketmanagement.exceptions.FeignNotFoundException;
 import br.com.compass.ticketmanagement.exceptions.FeignRequestException;
+import br.com.compass.ticketmanagement.exceptions.TicketNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,7 +24,7 @@ public class ExceptionHandlerController {
                 .body(new StandardError(request, HttpStatus.UNPROCESSABLE_ENTITY, message, br));
     }
 
-    @ExceptionHandler(FeignNotFoundException.class)
+    @ExceptionHandler({FeignNotFoundException.class, TicketNotFoundException.class})
     public ResponseEntity<StandardError> notFoundException(RuntimeException e, HttpServletRequest request) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
