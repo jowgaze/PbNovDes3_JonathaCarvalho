@@ -8,8 +8,11 @@ import br.com.compass.ticketmanagement.services.TicketService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -32,6 +35,14 @@ public class TicketController {
         log.info("Request to get ticket. id: {}", id);
         TicketResponseDto response = ticketService.findById(id);
         log.info("Ticket found: {}", response);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/get-ticket-by-cpf/{cpf}")
+    public ResponseEntity<List<TicketResponseDto>> findByCpf(@PathVariable("cpf") @CPF String cpf){
+        log.info("Request to get tickets. cpf: {}", cpf);
+        List<TicketResponseDto> response = ticketService.findByCpf(cpf);
+        log.info("Tickets found: size: {}", response.size());
         return ResponseEntity.ok().body(response);
     }
 }

@@ -29,7 +29,7 @@ public class TicketService {
     }
 
     @Transactional(readOnly = true)
-    public TicketResponseDto findById(String id){
+    public TicketResponseDto findById(String id) {
         Ticket ticket = ticketRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("ticket not found. id: {}", id);
@@ -37,6 +37,18 @@ public class TicketService {
                 });
 
         return getTicketFull(ticket);
+    }
+
+    @Transactional(readOnly = true)
+    public List<TicketResponseDto> findByCpf(String cpf) {
+        List<Ticket> ticketList = ticketRepository.findByCpf(cpf);
+
+        if (ticketList.isEmpty()) {
+            log.error("ticket not found. cpf: {}", cpf);
+            throw new TicketNotFoundException(String.format("ticket with cpf=%s not found", cpf));
+        }
+
+        return ticketList.stream().map(this::getTicketFull).toList();
     }
 
     private String generateId() {

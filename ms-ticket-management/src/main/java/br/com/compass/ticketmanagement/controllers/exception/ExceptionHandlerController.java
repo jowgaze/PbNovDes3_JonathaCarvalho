@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
@@ -38,5 +39,15 @@ public class ExceptionHandlerController {
                 .status(HttpStatus.SERVICE_UNAVAILABLE)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new StandardError(request, HttpStatus.SERVICE_UNAVAILABLE, e.getMessage()));
+    }
+
+    @ExceptionHandler(HandlerMethodValidationException.class)
+    public ResponseEntity<StandardError> handlerMethodValidationException(HttpServletRequest request) {
+        String message = "invalid cpf field";
+
+        return ResponseEntity
+                .status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new StandardError(request, HttpStatus.UNPROCESSABLE_ENTITY, message));
     }
 }
