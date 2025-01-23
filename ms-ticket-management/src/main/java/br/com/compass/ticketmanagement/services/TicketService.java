@@ -2,6 +2,7 @@ package br.com.compass.ticketmanagement.services;
 
 import br.com.compass.ticketmanagement.domain.ticket.Ticket;
 import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketResponseDto;
+import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketUpdateRequestDto;
 import br.com.compass.ticketmanagement.domain.ticket.mapper.TicketMapper;
 import br.com.compass.ticketmanagement.exceptions.TicketNotFoundException;
 import br.com.compass.ticketmanagement.repositories.TicketRepository;
@@ -29,13 +30,8 @@ public class TicketService {
     }
 
     @Transactional(readOnly = true)
-    public TicketResponseDto findById(String id) {
-        Ticket ticket = ticketRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.error("ticket not found. id: {}", id);
-                    return new TicketNotFoundException(String.format("ticket with id=%s not found", id));
-                });
-
+    public TicketResponseDto findFullById(String id) {
+        Ticket ticket = findById(id);
         return getTicketFull(ticket);
     }
 
@@ -51,8 +47,39 @@ public class TicketService {
         return ticketList.stream().map(this::getTicketFull).toList();
     }
 
+    @Transactional
+    public void update(String id, TicketUpdateRequestDto request) {
+        Ticket ticket = findById(id);
+
+        if (request.getCpf() != null)
+            ticket.setCpf(request.getCpf());
+
+        if (request.getCustomerName() != null)
+            ticket.setCustomerName(request.getCustomerName());
+
+        if (request.getCustomerMail() != null)
+            ticket.setCustomerMail(request.getCustomerMail());
+
+        if (request.getBrlAmount() != null)
+            ticket.setBrlAmount(request.getBrlAmount());
+
+        if (request.getUsdAmount() != null)
+            ticket.setUsdAmount(request.getUsdAmount());
+
+        ticketRepository.save(ticket);
+    }
+
+
     private String generateId() {
         return Long.toString(ticketRepository.count() + 1);
+    }
+
+    private Ticket findById(String id) {
+        return ticketRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("ticket not found. id: {}", id);
+                    return new TicketNotFoundException(String.format("ticket with id=%s not found", id));
+                });
     }
 
     private TicketResponseDto getTicketFull(Ticket ticket) {

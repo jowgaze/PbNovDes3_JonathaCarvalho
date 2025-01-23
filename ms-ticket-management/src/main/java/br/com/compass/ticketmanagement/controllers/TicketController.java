@@ -3,6 +3,7 @@ package br.com.compass.ticketmanagement.controllers;
 import br.com.compass.ticketmanagement.domain.ticket.Ticket;
 import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketRequestDto;
 import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketResponseDto;
+import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketUpdateRequestDto;
 import br.com.compass.ticketmanagement.domain.ticket.mapper.TicketMapper;
 import br.com.compass.ticketmanagement.services.TicketService;
 import jakarta.validation.Valid;
@@ -33,7 +34,7 @@ public class TicketController {
     @GetMapping("/get-ticket/{id}")
     public ResponseEntity<TicketResponseDto> findById(@PathVariable("id") String id){
         log.info("Request to get ticket. id: {}", id);
-        TicketResponseDto response = ticketService.findById(id);
+        TicketResponseDto response = ticketService.findFullById(id);
         log.info("Ticket found: {}", response);
         return ResponseEntity.ok().body(response);
     }
@@ -44,5 +45,13 @@ public class TicketController {
         List<TicketResponseDto> response = ticketService.findByCpf(cpf);
         log.info("Tickets found: size: {}", response.size());
         return ResponseEntity.ok().body(response);
+    }
+
+    @PutMapping("/update-ticket/{id}")
+    public ResponseEntity<Void> update(@PathVariable("id") String id, @RequestBody @Valid TicketUpdateRequestDto request){
+        log.info("Request to update ticket. id: {}", id);
+        ticketService.update(id,  request);
+        log.info("Ticket updated successfully. id: {}", id);
+        return ResponseEntity.noContent().build();
     }
 }
