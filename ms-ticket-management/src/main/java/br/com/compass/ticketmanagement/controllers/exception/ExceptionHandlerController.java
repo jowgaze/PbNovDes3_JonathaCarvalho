@@ -1,9 +1,8 @@
-package br.com.compass.eventmanagement.controllers.exception;
+package br.com.compass.ticketmanagement.controllers.exception;
 
-import br.com.compass.eventmanagement.exceptions.EventNotFoundException;
-import br.com.compass.eventmanagement.exceptions.FeignNotFoundException;
-import br.com.compass.eventmanagement.exceptions.FeignRequestException;
-import br.com.compass.eventmanagement.exceptions.TicketLinkedException;
+import br.com.compass.ticketmanagement.exceptions.FeignNotFoundException;
+import br.com.compass.ticketmanagement.exceptions.FeignRequestException;
+import br.com.compass.ticketmanagement.exceptions.TicketNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
@@ -25,8 +25,8 @@ public class ExceptionHandlerController {
                 .body(new StandardError(request, HttpStatus.UNPROCESSABLE_ENTITY, message, br));
     }
 
-    @ExceptionHandler({FeignNotFoundException.class, EventNotFoundException.class})
-    public ResponseEntity<StandardError> notFoundException(RuntimeException e, HttpServletRequest request){
+    @ExceptionHandler({FeignNotFoundException.class, TicketNotFoundException.class})
+    public ResponseEntity<StandardError> notFoundException(RuntimeException e, HttpServletRequest request) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -34,18 +34,20 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(FeignRequestException.class)
-    public ResponseEntity<StandardError> feignRequestException(RuntimeException e, HttpServletRequest request){
+    public ResponseEntity<StandardError> feignRequestException(RuntimeException e, HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new StandardError(request, HttpStatus.SERVICE_UNAVAILABLE, e.getMessage()));
+    }
+
+    @ExceptionHandler(HandlerMethodValidationException.class)
+    public ResponseEntity<StandardError> handlerMethodValidationException(HttpServletRequest request) {
+        String message = "invalid cpf field";
+
         return ResponseEntity
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new StandardError(request, HttpStatus.UNPROCESSABLE_ENTITY, e.getMessage()));
-    }
-
-    @ExceptionHandler(TicketLinkedException.class)
-    public ResponseEntity<StandardError> ticketLinkedException(RuntimeException e, HttpServletRequest request){
-        return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(new StandardError(request, HttpStatus.CONFLICT, e.getMessage()));
+                .body(new StandardError(request, HttpStatus.UNPROCESSABLE_ENTITY, message));
     }
 }

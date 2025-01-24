@@ -5,7 +5,7 @@ import br.com.compass.eventmanagement.exceptions.FeignNotFoundException;
 import br.com.compass.eventmanagement.exceptions.FeignRequestException;
 import br.com.compass.eventmanagement.repositories.AddressRepository;
 import br.com.compass.eventmanagement.services.client.viacep.ViaCepClient;
-import br.com.compass.eventmanagement.services.client.viacep.ViaCepResponse;
+import br.com.compass.eventmanagement.services.client.viacep.dtos.ViaCepResponseDto;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class AddressService {
     @Transactional
     public Address insert(String zipCode) {
         try {
-            ViaCepResponse response = viaCepClient.getViaCep(zipCode);
+            ViaCepResponseDto response = viaCepClient.getViaCep(zipCode);
 
             if (response.getErro() != null) {
                 log.error("Address not found. zipCode: {}", zipCode);
