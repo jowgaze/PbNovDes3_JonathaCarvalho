@@ -1,6 +1,7 @@
 package br.com.compass.ticketmanagement.services;
 
 import br.com.compass.ticketmanagement.domain.ticket.Ticket;
+import br.com.compass.ticketmanagement.domain.ticket.dtos.HasTicketsDto;
 import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketResponseDto;
 import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketUpdateRequestDto;
 import br.com.compass.ticketmanagement.domain.ticket.mapper.TicketMapper;
@@ -70,15 +71,18 @@ public class TicketService {
     }
 
     @Transactional
-    public void softDelete(String id){
+    public void softDelete(String id) {
         Ticket ticket = findById(id);
         ticket.setDeleted(true);
         ticketRepository.save(ticket);
     }
 
-
-    private String generateId() {
-        return Long.toString(ticketRepository.count() + 1);
+    @Transactional(readOnly = true)
+    public HasTicketsDto hasTickets(String id) {
+        if (ticketRepository.existsTicketsByEventIdAndDeletedFalse(id))
+            return new HasTicketsDto(id, true);
+        else
+            return new HasTicketsDto(id, false);
     }
 
     private Ticket findById(String id) {
@@ -87,6 +91,10 @@ public class TicketService {
                     log.error("ticket not found. id: {}", id);
                     return new TicketNotFoundException(String.format("ticket with id=%s not found", id));
                 });
+    }
+
+    private String generateId() {
+        return Long.toString(ticketRepository.count() + 1);
     }
 
     private TicketResponseDto getTicketFull(Ticket ticket) {

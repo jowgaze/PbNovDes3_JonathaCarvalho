@@ -10,4 +10,6 @@ public interface TicketRepository extends MongoRepository<Ticket, String> {
     Optional<Ticket> findByIdAndDeletedFalse(String id);
 
     List<Ticket> findByCpfAndDeletedFalse(String cpf);
+
+    boolean existsTicketsByEventIdAndDeletedFalse(String eventId);
 }

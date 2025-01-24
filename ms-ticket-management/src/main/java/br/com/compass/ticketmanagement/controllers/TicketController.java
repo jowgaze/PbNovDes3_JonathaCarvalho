@@ -1,6 +1,7 @@
 package br.com.compass.ticketmanagement.controllers;
 
 import br.com.compass.ticketmanagement.domain.ticket.Ticket;
+import br.com.compass.ticketmanagement.domain.ticket.dtos.HasTicketsDto;
 import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketRequestDto;
 import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketResponseDto;
 import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketUpdateRequestDto;
@@ -61,5 +62,13 @@ public class TicketController {
         ticketService.softDelete(id);
         log.info("ticket canceled successfully");
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/check-tickets-by-event/{eventId}")
+    public ResponseEntity<HasTicketsDto> hasTickets(@PathVariable("eventId") String eventId){
+        log.info("Request to check if the event has a linked ticket. idEvent: {}", eventId);
+        HasTicketsDto response = ticketService.hasTickets(eventId);
+        log.info("request to check finished");
+        return ResponseEntity.ok().body(response);
     }
 }
