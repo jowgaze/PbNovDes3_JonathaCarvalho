@@ -2,7 +2,7 @@ package br.com.compass.ticketmanagement.producer;
 
 import br.com.compass.ticketmanagement.domain.ticket.Ticket;
 import br.com.compass.ticketmanagement.exceptions.EmailConversionException;
-import br.com.compass.ticketmanagement.producer.dtos.EmailDto;
+import br.com.compass.ticketmanagement.dtos.email.EmailDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

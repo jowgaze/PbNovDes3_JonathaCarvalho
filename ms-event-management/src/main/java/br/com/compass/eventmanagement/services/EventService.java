@@ -2,9 +2,9 @@ package br.com.compass.eventmanagement.services;
 
 import br.com.compass.eventmanagement.domain.address.Address;
 import br.com.compass.eventmanagement.domain.event.Event;
-import br.com.compass.eventmanagement.domain.event.dtos.EventRequestDto;
-import br.com.compass.eventmanagement.domain.event.dtos.EventUpdateRequestDto;
-import br.com.compass.eventmanagement.domain.event.mapper.EventMapper;
+import br.com.compass.eventmanagement.dtos.event.EventRequestDto;
+import br.com.compass.eventmanagement.dtos.event.EventUpdateRequestDto;
+import br.com.compass.eventmanagement.dtos.event.mapper.EventMapper;
 import br.com.compass.eventmanagement.exceptions.EventNotFoundException;
 import br.com.compass.eventmanagement.exceptions.TicketLinkedException;
 import br.com.compass.eventmanagement.repositories.EventRespository;

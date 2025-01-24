@@ -1,4 +1,4 @@
-package br.com.compass.ticketmanagement.services.client.dtos;
+package br.com.compass.ticketmanagement.dtos.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;

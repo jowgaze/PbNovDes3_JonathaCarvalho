@@ -1,9 +1,9 @@
-package br.com.compass.ticketmanagement.domain.ticket.mapper;
+package br.com.compass.ticketmanagement.dtos.ticket.mapper;
 
 import br.com.compass.ticketmanagement.domain.ticket.Ticket;
-import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketRequestDto;
-import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketResponseDto;
-import br.com.compass.ticketmanagement.services.client.dtos.EventResponseDto;
+import br.com.compass.ticketmanagement.dtos.ticket.TicketRequestDto;
+import br.com.compass.ticketmanagement.dtos.ticket.TicketResponseDto;
+import br.com.compass.ticketmanagement.dtos.event.EventResponseDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 

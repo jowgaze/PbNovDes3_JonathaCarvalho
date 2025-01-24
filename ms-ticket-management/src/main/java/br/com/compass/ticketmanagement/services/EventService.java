@@ -3,7 +3,7 @@ package br.com.compass.ticketmanagement.services;
 import br.com.compass.ticketmanagement.exceptions.FeignNotFoundException;
 import br.com.compass.ticketmanagement.exceptions.FeignRequestException;
 import br.com.compass.ticketmanagement.services.client.EventClient;
-import br.com.compass.ticketmanagement.services.client.dtos.EventResponseDto;
+import br.com.compass.ticketmanagement.dtos.event.EventResponseDto;
 import feign.FeignException;
 import feign.RetryableException;
 import lombok.RequiredArgsConstructor;

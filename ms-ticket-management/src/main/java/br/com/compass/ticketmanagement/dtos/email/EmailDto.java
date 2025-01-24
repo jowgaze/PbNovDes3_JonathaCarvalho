@@ -1,4 +1,4 @@
-package br.com.compass.ticketmanagement.producer.dtos;
+package br.com.compass.ticketmanagement.dtos.email;
 
 import lombok.*;
 

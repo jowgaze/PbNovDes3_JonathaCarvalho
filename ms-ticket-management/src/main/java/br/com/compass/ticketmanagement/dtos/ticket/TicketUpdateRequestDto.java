@@ -1,4 +1,4 @@
-package br.com.compass.ticketmanagement.domain.ticket.dtos;
+package br.com.compass.ticketmanagement.dtos.ticket;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;

@@ -1,4 +1,4 @@
-package br.com.compass.ticketmanagement.domain.ticket.dtos;
+package br.com.compass.eventmanagement.dtos.event;
 
 import lombok.*;
 
