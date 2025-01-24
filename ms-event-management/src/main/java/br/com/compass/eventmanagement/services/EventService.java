@@ -6,6 +6,7 @@ import br.com.compass.eventmanagement.domain.event.dtos.EventRequestDto;
 import br.com.compass.eventmanagement.domain.event.dtos.EventUpdateRequestDto;
 import br.com.compass.eventmanagement.domain.event.mapper.EventMapper;
 import br.com.compass.eventmanagement.exceptions.EventNotFoundException;
+import br.com.compass.eventmanagement.exceptions.TicketLinkedException;
 import br.com.compass.eventmanagement.repositories.EventRespository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import java.util.List;
 public class EventService {
     private final EventRespository eventRespository;
     private final AddressService addressService;
+    private final TicketService ticketService;
 
     @Transactional
     public Event insert(EventRequestDto request) {
@@ -54,6 +56,10 @@ public class EventService {
     @Transactional
     public void update(String id, EventUpdateRequestDto request) {
         Event event = findById(id);
+        if (ticketService.hasTickets(id)) {
+            log.error("Error when updating, there are linked tickets. id: {}", id);
+            throw new TicketLinkedException("error when updating, there are linked tickets");
+        }
 
         if (request.getName() != null)
             event.setName(request.getName());
@@ -72,6 +78,11 @@ public class EventService {
     @Transactional
     public void delete(String id) {
         Event event = findById(id);
+        if (ticketService.hasTickets(id)) {
+            log.error("Error when deleting, there are linked tickets. id: {}", id);
+            throw new TicketLinkedException("error when deleting, there are linked tickets");
+        }
+
         eventRespository.delete(event);
     }
 }

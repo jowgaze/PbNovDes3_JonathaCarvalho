@@ -3,6 +3,7 @@ package br.com.compass.eventmanagement.controllers.exception;
 import br.com.compass.eventmanagement.exceptions.EventNotFoundException;
 import br.com.compass.eventmanagement.exceptions.FeignNotFoundException;
 import br.com.compass.eventmanagement.exceptions.FeignRequestException;
+import br.com.compass.eventmanagement.exceptions.TicketLinkedException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,5 +39,13 @@ public class ExceptionHandlerController {
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new StandardError(request, HttpStatus.UNPROCESSABLE_ENTITY, e.getMessage()));
+    }
+
+    @ExceptionHandler(TicketLinkedException.class)
+    public ResponseEntity<StandardError> ticketLinkedException(RuntimeException e, HttpServletRequest request){
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new StandardError(request, HttpStatus.CONFLICT, e.getMessage()));
     }
 }
