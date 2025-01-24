@@ -1,4 +1,4 @@
-package br.com.compass.eventmanagement.services.common;
+package br.com.compass.eventmanagement.common;
 
 import br.com.compass.eventmanagement.domain.address.Address;
 import br.com.compass.eventmanagement.dtos.viacep.ViaCepResponseDto;

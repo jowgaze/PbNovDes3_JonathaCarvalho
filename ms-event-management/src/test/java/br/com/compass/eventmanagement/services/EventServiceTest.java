@@ -14,10 +14,10 @@ import org.springframework.data.domain.Sort;
 
 import java.util.*;
 
-import static br.com.compass.eventmanagement.services.common.AddressConstants.*;
-import static br.com.compass.eventmanagement.services.common.EventConstants.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import static br.com.compass.eventmanagement.common.AddressConstants.*;
+import static br.com.compass.eventmanagement.common.EventConstants.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @ExtendWith(MockitoExtension.class)

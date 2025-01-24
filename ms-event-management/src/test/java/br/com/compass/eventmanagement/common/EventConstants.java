@@ -1,4 +1,4 @@
-package br.com.compass.eventmanagement.services.common;
+package br.com.compass.eventmanagement.common;
 
 import br.com.compass.eventmanagement.domain.event.Event;
 import br.com.compass.eventmanagement.dtos.event.EventRequestDto;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static br.com.compass.eventmanagement.services.common.AddressConstants.ADDRESS_SAVED;
+import static br.com.compass.eventmanagement.common.AddressConstants.ADDRESS_SAVED;
 
 public class EventConstants {
     public static final Event VALID_EVENT = new Event("Show", LocalDateTime.parse("2025-11-13T20:00:00"), ADDRESS_SAVED);
