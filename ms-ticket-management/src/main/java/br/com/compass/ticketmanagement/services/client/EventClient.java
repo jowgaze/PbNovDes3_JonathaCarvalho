@@ -1,6 +1,6 @@
 package br.com.compass.ticketmanagement.services.client;
 
-import br.com.compass.ticketmanagement.services.client.dtos.EventResponseDto;
+import br.com.compass.ticketmanagement.dtos.event.EventResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

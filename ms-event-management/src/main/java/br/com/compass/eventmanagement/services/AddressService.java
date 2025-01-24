@@ -5,7 +5,7 @@ import br.com.compass.eventmanagement.exceptions.FeignNotFoundException;
 import br.com.compass.eventmanagement.exceptions.FeignRequestException;
 import br.com.compass.eventmanagement.repositories.AddressRepository;
 import br.com.compass.eventmanagement.services.client.viacep.ViaCepClient;
-import br.com.compass.eventmanagement.services.client.viacep.dtos.ViaCepResponseDto;
+import br.com.compass.eventmanagement.dtos.viacep.ViaCepResponseDto;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package br.com.compass.eventmanagement.services.client.viacep.dtos;
+package br.com.compass.eventmanagement.dtos.viacep;
 
 import lombok.*;
 

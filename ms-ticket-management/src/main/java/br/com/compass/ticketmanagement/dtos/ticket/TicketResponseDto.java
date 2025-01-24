@@ -1,6 +1,6 @@
-package br.com.compass.ticketmanagement.domain.ticket.dtos;
+package br.com.compass.ticketmanagement.dtos.ticket;
 
-import br.com.compass.ticketmanagement.services.client.dtos.EventResponseDto;
+import br.com.compass.ticketmanagement.dtos.event.EventResponseDto;
 import lombok.*;
 
 @NoArgsConstructor

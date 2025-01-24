@@ -1,9 +1,9 @@
-package br.com.compass.eventmanagement.domain.event.mapper;
+package br.com.compass.eventmanagement.dtos.event.mapper;
 
 import br.com.compass.eventmanagement.domain.address.Address;
 import br.com.compass.eventmanagement.domain.event.Event;
-import br.com.compass.eventmanagement.domain.event.dtos.EventRequestDto;
-import br.com.compass.eventmanagement.domain.event.dtos.EventResponseDto;
+import br.com.compass.eventmanagement.dtos.event.EventRequestDto;
+import br.com.compass.eventmanagement.dtos.event.EventResponseDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 

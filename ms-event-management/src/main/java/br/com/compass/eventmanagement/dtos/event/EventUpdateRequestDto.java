@@ -1,4 +1,4 @@
-package br.com.compass.eventmanagement.domain.event.dtos;
+package br.com.compass.eventmanagement.dtos.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;

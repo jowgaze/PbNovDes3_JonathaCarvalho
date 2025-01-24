@@ -1,13 +1,14 @@
 package br.com.compass.ticketmanagement.services;
 
 import br.com.compass.ticketmanagement.domain.ticket.Ticket;
-import br.com.compass.ticketmanagement.domain.ticket.dtos.HasTicketsDto;
-import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketResponseDto;
-import br.com.compass.ticketmanagement.domain.ticket.dtos.TicketUpdateRequestDto;
-import br.com.compass.ticketmanagement.domain.ticket.mapper.TicketMapper;
+import br.com.compass.ticketmanagement.dtos.event.HasTicketsDto;
+import br.com.compass.ticketmanagement.dtos.ticket.TicketResponseDto;
+import br.com.compass.ticketmanagement.dtos.ticket.TicketUpdateRequestDto;
+import br.com.compass.ticketmanagement.dtos.ticket.mapper.TicketMapper;
 import br.com.compass.ticketmanagement.exceptions.TicketNotFoundException;
+import br.com.compass.ticketmanagement.producer.TicketProducer;
 import br.com.compass.ticketmanagement.repositories.TicketRepository;
-import br.com.compass.ticketmanagement.services.client.dtos.EventResponseDto;
+import br.com.compass.ticketmanagement.dtos.event.EventResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TicketService {
     private final TicketRepository ticketRepository;
+    private final TicketProducer ticketProducer;
     private final EventService eventService;
 
     @Transactional
@@ -27,6 +29,7 @@ public class TicketService {
         ticket.setId(generateId());
         TicketResponseDto response = getTicketFull(ticket);
         ticketRepository.save(ticket);
+        ticketProducer.purchaseConfirmation(ticket);
         return response;
     }
 

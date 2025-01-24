@@ -1,6 +1,6 @@
 package br.com.compass.eventmanagement.domain.address;
 
-import br.com.compass.eventmanagement.services.client.viacep.dtos.ViaCepResponseDto;
+import br.com.compass.eventmanagement.dtos.viacep.ViaCepResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.data.annotation.Id;

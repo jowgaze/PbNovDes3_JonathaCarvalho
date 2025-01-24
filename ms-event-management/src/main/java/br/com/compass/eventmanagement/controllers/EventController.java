@@ -1,10 +1,10 @@
 package br.com.compass.eventmanagement.controllers;
 
 import br.com.compass.eventmanagement.domain.event.Event;
-import br.com.compass.eventmanagement.domain.event.dtos.EventRequestDto;
-import br.com.compass.eventmanagement.domain.event.dtos.EventResponseDto;
-import br.com.compass.eventmanagement.domain.event.dtos.EventUpdateRequestDto;
-import br.com.compass.eventmanagement.domain.event.mapper.EventMapper;
+import br.com.compass.eventmanagement.dtos.event.EventRequestDto;
+import br.com.compass.eventmanagement.dtos.event.EventResponseDto;
+import br.com.compass.eventmanagement.dtos.event.EventUpdateRequestDto;
+import br.com.compass.eventmanagement.dtos.event.mapper.EventMapper;
 import br.com.compass.eventmanagement.services.EventService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

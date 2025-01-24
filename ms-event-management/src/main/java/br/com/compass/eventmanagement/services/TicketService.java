@@ -1,7 +1,7 @@
 package br.com.compass.eventmanagement.services;
 
 import br.com.compass.eventmanagement.services.client.ticket.TicketClient;
-import br.com.compass.eventmanagement.services.client.ticket.dtos.HasTicketsDto;
+import br.com.compass.eventmanagement.dtos.event.HasTicketsDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
