@@ -16,5 +16,12 @@ spring:
     username: ${RABBITMQ_USERNAME:guest}
     password: ${RABBITMQ_PASSWORD:guest}
 
+springdoc:
+  packages-to-scan: br.com.compass.ticketmanagement.controllers
+  swagger-ui:
+    path: /ticketmanagement.html
+  api-docs:
+    path: /ticketmanagement
+
 server:
   port: 8081
