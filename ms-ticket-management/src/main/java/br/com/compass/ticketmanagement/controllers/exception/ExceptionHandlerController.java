@@ -2,6 +2,7 @@ package br.com.compass.ticketmanagement.controllers.exception;
 
 import br.com.compass.ticketmanagement.exceptions.FeignNotFoundException;
 import br.com.compass.ticketmanagement.exceptions.FeignRequestException;
+import br.com.compass.ticketmanagement.exceptions.RabbitMQConnectionException;
 import br.com.compass.ticketmanagement.exceptions.TicketNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -33,8 +34,8 @@ public class ExceptionHandlerController {
                 .body(new StandardError(request, HttpStatus.NOT_FOUND, e.getMessage()));
     }
 
-    @ExceptionHandler(FeignRequestException.class)
-    public ResponseEntity<StandardError> feignRequestException(RuntimeException e, HttpServletRequest request) {
+    @ExceptionHandler({FeignRequestException.class, RabbitMQConnectionException.class})
+    public ResponseEntity<StandardError> requestException(RuntimeException e, HttpServletRequest request) {
         return ResponseEntity
                 .status(HttpStatus.SERVICE_UNAVAILABLE)
                 .contentType(MediaType.APPLICATION_JSON)
