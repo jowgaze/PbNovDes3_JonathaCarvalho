@@ -1,13 +1,11 @@
 package br.com.compass.eventmanagement.controllers.exception;
 
-import br.com.compass.eventmanagement.exceptions.EventNotFoundException;
-import br.com.compass.eventmanagement.exceptions.FeignNotFoundException;
-import br.com.compass.eventmanagement.exceptions.FeignRequestException;
-import br.com.compass.eventmanagement.exceptions.TicketLinkedException;
+import br.com.compass.eventmanagement.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -33,8 +31,16 @@ public class ExceptionHandlerController {
                 .body(new StandardError(request, HttpStatus.NOT_FOUND, e.getMessage()));
     }
 
-    @ExceptionHandler(FeignRequestException.class)
-    public ResponseEntity<StandardError> feignRequestException(RuntimeException e, HttpServletRequest request){
+    @ExceptionHandler(TicketServiceException.class)
+    public ResponseEntity<StandardError> ticketServiceException(RuntimeException e, HttpServletRequest request){
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new StandardError(request, HttpStatus.SERVICE_UNAVAILABLE, e.getMessage()));
+    }
+
+    @ExceptionHandler({FeignRequestException.class, HttpMessageNotReadableException.class})
+    public ResponseEntity<StandardError> invalidFieldsException(RuntimeException e, HttpServletRequest request){
         return ResponseEntity
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .contentType(MediaType.APPLICATION_JSON)

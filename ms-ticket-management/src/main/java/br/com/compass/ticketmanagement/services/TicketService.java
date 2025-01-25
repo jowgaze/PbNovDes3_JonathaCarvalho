@@ -5,12 +5,14 @@ import br.com.compass.ticketmanagement.dtos.event.HasTicketsDto;
 import br.com.compass.ticketmanagement.dtos.ticket.TicketResponseDto;
 import br.com.compass.ticketmanagement.dtos.ticket.TicketUpdateRequestDto;
 import br.com.compass.ticketmanagement.dtos.ticket.mapper.TicketMapper;
+import br.com.compass.ticketmanagement.exceptions.RabbitMQConnectionException;
 import br.com.compass.ticketmanagement.exceptions.TicketNotFoundException;
 import br.com.compass.ticketmanagement.producer.TicketProducer;
 import br.com.compass.ticketmanagement.repositories.TicketRepository;
 import br.com.compass.ticketmanagement.dtos.event.EventResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.AmqpConnectException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,11 +28,16 @@ public class TicketService {
 
     @Transactional
     public TicketResponseDto insert(Ticket ticket) {
-        ticket.setId(generateId());
-        TicketResponseDto response = getTicketFull(ticket);
-        ticketRepository.save(ticket);
-        ticketProducer.purchaseConfirmation(ticket);
-        return response;
+        try {
+            ticket.setId(generateId());
+            TicketResponseDto response = getTicketFull(ticket);
+            ticketProducer.purchaseConfirmation(ticket);
+            ticketRepository.save(ticket);
+            return response;
+        } catch (AmqpConnectException e){
+            log.error("Rabbitmq service unavailable");
+            throw new RabbitMQConnectionException("Rabbitmq service unavailable");
+        }
     }
 
     @Transactional(readOnly = true)
