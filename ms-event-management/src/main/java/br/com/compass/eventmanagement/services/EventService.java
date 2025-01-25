@@ -7,7 +7,7 @@ import br.com.compass.eventmanagement.dtos.event.EventUpdateRequestDto;
 import br.com.compass.eventmanagement.dtos.event.mapper.EventMapper;
 import br.com.compass.eventmanagement.exceptions.EventNotFoundException;
 import br.com.compass.eventmanagement.exceptions.TicketLinkedException;
-import br.com.compass.eventmanagement.repositories.EventRespository;
+import br.com.compass.eventmanagement.repositories.EventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class EventService {
-    private final EventRespository eventRespository;
+    private final EventRepository eventRepository;
     private final AddressService addressService;
     private final TicketService ticketService;
 
@@ -29,12 +29,12 @@ public class EventService {
         String zipCode = request.getZipCode();
         Address address = addressService.findById(zipCode);
         Event event = EventMapper.toEntity(request, address);
-        return eventRespository.insert(event);
+        return eventRepository.insert(event);
     }
 
     @Transactional(readOnly = true)
     public Event findById(String id) {
-        return eventRespository.findById(id)
+        return eventRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("Event not found. id: {}", id);
                     return new EventNotFoundException(String.format("event with id=%s not found", id));
@@ -43,14 +43,14 @@ public class EventService {
 
     @Transactional(readOnly = true)
     public List<Event> findAll() {
-        return eventRespository.findAll();
+        return eventRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     public List<Event> findAllSorted(String direction) {
         Sort sort = Sort.by("name");
         sort = direction.equals("desc") ? sort.descending() : sort.ascending();
-        return eventRespository.findAll(sort);
+        return eventRepository.findAll(sort);
     }
 
     @Transactional
@@ -72,7 +72,7 @@ public class EventService {
             event.setAddress(address);
         }
 
-        eventRespository.save(event);
+        eventRepository.save(event);
     }
 
     @Transactional
@@ -83,6 +83,6 @@ public class EventService {
             throw new TicketLinkedException("error when deleting, there are linked tickets");
         }
 
-        eventRespository.delete(event);
+        eventRepository.delete(event);
     }
 }
