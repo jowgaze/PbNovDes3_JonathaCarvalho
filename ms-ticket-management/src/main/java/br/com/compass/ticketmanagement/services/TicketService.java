@@ -92,7 +92,7 @@ public class TicketService {
         if (ticketRepository.existsTicketsByEventIdAndDeletedFalse(id))
             return new HasTicketsDto(id, true);
         else
-            return new HasTicketsDto(id, false);
+            return new HasTicketsDto(id, false, null);
     }
 
     private Ticket findById(String id) {
