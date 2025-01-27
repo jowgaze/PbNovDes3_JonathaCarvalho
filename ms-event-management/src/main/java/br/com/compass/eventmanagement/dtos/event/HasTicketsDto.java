@@ -10,4 +10,5 @@ import lombok.*;
 public class HasTicketsDto {
     private String eventId;
     private Boolean hasTickets;
+    private String error;
 }
