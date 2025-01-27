@@ -3,7 +3,6 @@ package br.com.compass.ticketmanagement.services;
 import br.com.compass.ticketmanagement.dtos.event.HasTicketsDto;
 import br.com.compass.ticketmanagement.dtos.ticket.TicketResponseDto;
 import br.com.compass.ticketmanagement.exceptions.TicketNotFoundException;
-import br.com.compass.ticketmanagement.producer.TicketProducer;
 import br.com.compass.ticketmanagement.repositories.TicketRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -32,9 +31,6 @@ public class TicketServiceTest {
 
     @Mock
     private TicketRepository ticketRepository;
-
-    @Mock
-    private TicketProducer ticketProducer;
 
     @Test
     public void createTicket_WithValidRequest_ReturnsTicketResponse(){
