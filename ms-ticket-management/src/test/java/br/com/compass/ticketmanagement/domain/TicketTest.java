@@ -24,8 +24,8 @@ public class TicketTest {
 
         assertEquals(ticket1, ticket2);
         assertNotEquals(ticket1, ticket3);
-        assertNotEquals(ticket1, new Object());
-        assertNotEquals(ticket2, null);
+        assertNotEquals(new Object(), ticket1);
+        assertNotEquals(null, ticket2);
         assertEquals(ticket1.hashCode(), ticket2.hashCode());
         assertNotEquals(ticket1.hashCode(), ticket3.hashCode());
     }
