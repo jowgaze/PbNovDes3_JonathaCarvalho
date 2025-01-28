@@ -26,7 +26,6 @@ public class TicketRequestDto {
 
     @NotNull
     private String eventId;
-    private String eventName;
 
     @NotNull
     private String brlAmount;

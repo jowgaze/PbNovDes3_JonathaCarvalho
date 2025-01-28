@@ -1,6 +1,6 @@
 package br.com.compass.ticketmanagement.producer;
 
-import br.com.compass.ticketmanagement.domain.ticket.Ticket;
+import br.com.compass.ticketmanagement.dtos.ticket.TicketResponseDto;
 import br.com.compass.ticketmanagement.exceptions.EmailConversionException;
 import br.com.compass.ticketmanagement.dtos.email.EmailDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,13 +16,13 @@ public class TicketProducer {
     private final RabbitTemplate rabbitTemplate;
     private final Queue ticketQueue;
 
-    public void purchaseConfirmation(Ticket ticket) {
+    public void purchaseConfirmation(TicketResponseDto ticket) {
         EmailDto email = generateEmail(ticket);
         String emailJson = emailToJson(email);
         rabbitTemplate.convertAndSend(ticketQueue.getName(), emailJson);
     }
 
-    private EmailDto generateEmail(Ticket ticket) {
+    private EmailDto generateEmail(TicketResponseDto ticket) {
         String sender = "ticket@mail.com";
         String recipient = ticket.getCustomerMail();
         String subject = "Confirmação de compra";
@@ -31,12 +31,12 @@ public class TicketProducer {
         return new EmailDto(sender, recipient, subject, body);
     }
 
-    private String bodyBuilder(Ticket ticket) {
+    private String bodyBuilder(TicketResponseDto ticket) {
         return String.format(
                 "Olá, %s! A compra do seu ingresso, com código %s, para %s foi confirmada.",
                 ticket.getCustomerName(),
                 ticket.getId(),
-                ticket.getEventName()
+                ticket.getEvent().getName()
         );
     }
 

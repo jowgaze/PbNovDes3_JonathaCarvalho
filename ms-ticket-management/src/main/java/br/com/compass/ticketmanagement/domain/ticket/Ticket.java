@@ -21,7 +21,6 @@ public class Ticket implements Serializable {
     private String customerName;
     private String customerMail;
     private String eventId;
-    private String eventName;
     private String brlAmount;
     private String usdAmount;
     private Boolean deleted = false;

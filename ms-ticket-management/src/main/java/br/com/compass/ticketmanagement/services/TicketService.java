@@ -31,7 +31,7 @@ public class TicketService {
         try {
             ticket.setId(generateId());
             TicketResponseDto response = getTicketFull(ticket);
-            ticketProducer.purchaseConfirmation(ticket);
+            ticketProducer.purchaseConfirmation(response);
             ticketRepository.save(ticket);
             return response;
         } catch (AmqpConnectException e){
