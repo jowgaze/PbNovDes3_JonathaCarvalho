@@ -21,6 +21,7 @@ import java.util.Optional;
 import static br.com.compass.ticketmanagement.common.EventConstants.*;
 import static br.com.compass.ticketmanagement.common.TicketConstants.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
@@ -54,7 +55,7 @@ public class TicketServiceTest {
     @Test
     public void createTicket_WithValidRequest_ReturnsException(){
         when(eventService.findById("eventId")).thenReturn(EVENT);
-        doThrow(new AmqpConnectException(null)).when(ticketProducer).purchaseConfirmation(TICKET);
+        doThrow(new AmqpConnectException(null)).when(ticketProducer).purchaseConfirmation(any(TicketResponseDto.class));
 
         assertThatThrownBy(() -> ticketService.insert(TICKET))
                 .isInstanceOf(RabbitMQConnectionException.class)
