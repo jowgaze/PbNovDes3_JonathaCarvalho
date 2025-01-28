@@ -65,7 +65,7 @@ public class EventService {
             event.setName(request.getName());
 
         if (request.getDateTime() != null)
-            event.setDate(request.getDateTime());
+            event.setDateTime(request.getDateTime());
 
         if (request.getZipCode() != null) {
             Address address = addressService.findById(request.getZipCode());
