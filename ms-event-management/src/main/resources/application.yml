@@ -19,3 +19,7 @@ springdoc:
     path: /eventmanagement.html
   api-docs:
     path: /eventmanagement
+
+feign:
+  ticket:
+    url: ${TICKET_URL:localhost:8081}

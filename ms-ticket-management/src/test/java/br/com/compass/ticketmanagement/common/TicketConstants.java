@@ -18,7 +18,6 @@ public class TicketConstants {
             "José",
             "jose@mail.com",
             "eventId",
-            "Show",
             "R$ 50,00",
             "U$ 10,00",
             false
@@ -30,7 +29,6 @@ public class TicketConstants {
             "José",
             "jose@mail.com",
             "eventId",
-            "Show",
             "R$ 50,00",
             "U$ 10,00",
             false
@@ -41,7 +39,6 @@ public class TicketConstants {
             "José",
             "jose@mail.com",
             "eventId",
-            "Show",
             "R$ 50,00",
             "U$ 10,00"
     );
@@ -76,7 +73,6 @@ public class TicketConstants {
                     "José",
                     "jose@mail.com",
                     "eventId",
-                    "Show",
                     "R$ 50,00",
                     "U$ 10,00",
                     false
