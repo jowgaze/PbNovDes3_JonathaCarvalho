@@ -15,7 +15,9 @@ public class EventConstants {
     public static final Event VALID_EVENT = new Event("Show", LocalDateTime.parse("2025-11-13T20:00:00"), ADDRESS_SAVED);
     public static final Event VALID_EVENT_SAVED = new Event("eventId","Show", LocalDateTime.parse("2025-11-13T20:00:00"), ADDRESS_SAVED);
     public static final EventRequestDto EVENT_REQUEST = new EventRequestDto("Show", LocalDateTime.parse("2025-11-13T20:00:00"), "01001000");
+    public static final EventRequestDto EVENT_REQUEST_INVALID = new EventRequestDto("Show", LocalDateTime.parse("2025-11-13T20:00:00"), "");
     public static final EventUpdateRequestDto EVENT_UPDATE_REQUEST = new EventUpdateRequestDto("Show de Rock", LocalDateTime.parse("2025-12-13T20:00:00"), "01001000");
+    public static final EventUpdateRequestDto EVENT_UPDATE_REQUEST_INVALID = new EventUpdateRequestDto("Show de Rock", LocalDateTime.parse("2025-12-13T20:00:00"), "0100A000");
     public static final List<Event> EVENT_LIST = new ArrayList<>(
             Arrays.asList(
                     new Event("eventId1", "Show de Rock", LocalDateTime.parse("2025-11-13T20:00:00"), ADDRESS_SAVED),
