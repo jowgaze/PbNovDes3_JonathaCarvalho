@@ -2,6 +2,7 @@ package br.com.compass.ticketmanagement.services;
 
 import br.com.compass.ticketmanagement.dtos.event.HasTicketsDto;
 import br.com.compass.ticketmanagement.dtos.ticket.TicketResponseDto;
+import br.com.compass.ticketmanagement.exceptions.RabbitMQConnectionException;
 import br.com.compass.ticketmanagement.exceptions.TicketNotFoundException;
 import br.com.compass.ticketmanagement.producer.TicketProducer;
 import br.com.compass.ticketmanagement.repositories.TicketRepository;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.amqp.AmqpConnectException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.Optional;
 import static br.com.compass.ticketmanagement.common.EventConstants.*;
 import static br.com.compass.ticketmanagement.common.TicketConstants.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -46,6 +49,16 @@ public class TicketServiceTest {
         assertThat(sut.getId()).isEqualTo(TICKET_RESPONSE.getId());
         assertThat(sut.getCpf()).isEqualTo(TICKET_RESPONSE.getCpf());
         assertThat(sut.getEvent().getId()).isEqualTo(TICKET_RESPONSE.getEvent().getId());
+    }
+
+    @Test
+    public void createTicket_WithValidRequest_ReturnsException(){
+        when(eventService.findById("eventId")).thenReturn(EVENT);
+        doThrow(new AmqpConnectException(null)).when(ticketProducer).purchaseConfirmation(TICKET);
+
+        assertThatThrownBy(() -> ticketService.insert(TICKET))
+                .isInstanceOf(RabbitMQConnectionException.class)
+                .hasMessageContaining("Rabbitmq service unavailable");
     }
 
     @Test

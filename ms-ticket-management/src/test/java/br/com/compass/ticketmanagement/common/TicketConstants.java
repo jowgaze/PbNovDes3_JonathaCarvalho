@@ -1,6 +1,7 @@
 package br.com.compass.ticketmanagement.common;
 
 import br.com.compass.ticketmanagement.domain.ticket.Ticket;
+import br.com.compass.ticketmanagement.dtos.ticket.TicketRequestDto;
 import br.com.compass.ticketmanagement.dtos.ticket.TicketResponseDto;
 import br.com.compass.ticketmanagement.dtos.ticket.TicketUpdateRequestDto;
 
@@ -33,6 +34,16 @@ public class TicketConstants {
             "R$ 50,00",
             "U$ 10,00",
             false
+    );
+
+    public static final TicketRequestDto TICKET_REQUEST = new TicketRequestDto(
+            "64574764228",
+            "José",
+            "jose@mail.com",
+            "eventId",
+            "Show",
+            "R$ 50,00",
+            "U$ 10,00"
     );
 
     public static final TicketResponseDto TICKET_RESPONSE = new TicketResponseDto(
