@@ -22,7 +22,7 @@ public class EventMapperTest {
 
         assertThat(sut.getId()).isEqualTo(VALID_EVENT_SAVED.getId());
         assertThat(sut.getName()).isEqualTo(VALID_EVENT_SAVED.getName());
-        assertThat(sut.getDateTime()).isEqualTo(VALID_EVENT_SAVED.getDate());
+        assertThat(sut.getDateTime()).isEqualTo(VALID_EVENT_SAVED.getDateTime());
         assertThat(sut.getAddress()).isEqualTo(VALID_EVENT_SAVED.getAddress());
     }
 

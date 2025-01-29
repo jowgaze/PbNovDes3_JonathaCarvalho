@@ -25,7 +25,7 @@ public class Event implements Serializable {
     private String name;
 
     @NonNull
-    private LocalDateTime date;
+    private LocalDateTime dateTime;
 
     @DBRef(lazy = true)
     @NonNull

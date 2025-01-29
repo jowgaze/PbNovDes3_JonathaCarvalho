@@ -48,7 +48,7 @@ public class TicketController {
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = StandardError.class))),
                     @ApiResponse(
                             responseCode = "503",
-                            description = "Event service unavailable",
+                            description = "Event or Rabbitmq service unavailable",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = StandardError.class)))
             }
     )
@@ -96,6 +96,10 @@ public class TicketController {
                     @ApiResponse(
                             responseCode = "404",
                             description = "Ticket or event not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = StandardError.class))),
+                    @ApiResponse(
+                            responseCode = "422",
+                            description = "Field validation error",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = StandardError.class))),
                     @ApiResponse(
                             responseCode = "503",
