@@ -1,25 +1,5 @@
 spring:
   application:
     name: ms-event-management
-  web:
-    locale-resolver: fixed
-    locale: pt_BR
-  data:
-    mongodb:
-      host: ${MONGO_HOST:localhost}
-      port: ${MONG_PORT:27017}
-      database: ${MONGO_DATABASE:db_event}
-      username: ${MONGO_USERNAME:admin}
-      password: ${MONGO_PASSWORD:admin}
-      authentication-database: ${MONGO_AUTH_DB:admin}
-
-springdoc:
-  packages-to-scan: br.com.compass.eventmanagement.controllers
-  swagger-ui:
-    path: /eventmanagement.html
-  api-docs:
-    path: /eventmanagement
-
-feign:
-  ticket:
-    url: ${TICKET_URL:localhost:8081}
+  profiles:
+    active: dev

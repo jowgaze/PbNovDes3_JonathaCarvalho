@@ -1,0 +1,29 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: db_ticket
+      username: admin
+      password: admin
+      authentication-database: admin
+  rabbitmq:
+    queue: ticket-queue
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+springdoc:
+  packages-to-scan: br.com.compass.ticketmanagement.controllers
+  swagger-ui:
+    path: /ticketmanagement.html
+  api-docs:
+    path: /ticketmanagement
+
+feign:
+  event:
+    url: localhost:8080
+
+server:
+  port: 8081

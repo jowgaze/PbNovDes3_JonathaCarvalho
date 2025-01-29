@@ -1,0 +1,23 @@
+spring:
+  web:
+    locale-resolver: fixed
+    locale: pt_BR
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: db_event
+      username: admin
+      password: admin
+      authentication-database: admin
+
+springdoc:
+  packages-to-scan: br.com.compass.eventmanagement.controllers
+  swagger-ui:
+    path: /eventmanagement.html
+  api-docs:
+    path: /eventmanagement
+
+feign:
+  ticket:
+    url: localhost:8081

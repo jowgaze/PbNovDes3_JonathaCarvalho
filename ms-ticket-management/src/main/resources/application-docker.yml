@@ -1,0 +1,26 @@
+spring:
+  data:
+    mongodb:
+      host: ${MONGO_HOST}
+      port: ${MONG_PORT}
+      database: ${MONGO_DATABASE}
+      username: ${MONGO_USERNAME}
+      password: ${MONGO_PASSWORD}
+      authentication-database: ${MONGO_AUTH_DB}
+  rabbitmq:
+    queue: ticket-queue
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+
+springdoc:
+  packages-to-scan: br.com.compass.ticketmanagement.controllers
+  swagger-ui:
+    path: /ticketmanagement.html
+  api-docs:
+    path: /ticketmanagement
+
+feign:
+  event:
+    url: ${EVENT_URL}
