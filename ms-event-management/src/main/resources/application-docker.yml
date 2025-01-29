@@ -1,0 +1,23 @@
+spring:
+  web:
+    locale-resolver: fixed
+    locale: pt_BR
+  data:
+    mongodb:
+      host: ${MONGO_HOST}
+      port: ${MONG_PORT}
+      database: ${MONGO_DATABASE}
+      username: ${MONGO_USERNAME}
+      password: ${MONGO_PASSWORD}
+      authentication-database: ${MONGO_AUTH_DB}
+
+springdoc:
+  packages-to-scan: br.com.compass.eventmanagement.controllers
+  swagger-ui:
+    path: /eventmanagement.html
+  api-docs:
+    path: /eventmanagement
+
+feign:
+  ticket:
+    url: ${TICKET_URL}
