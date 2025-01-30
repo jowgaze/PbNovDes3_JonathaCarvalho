@@ -1,0 +1,39 @@
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  ms-event:
+    build: .
+    container_name: ms-event
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - MONGO_HOST=mongodb-event
+      - MONG_PORT=27017
+      - MONGO_DATABASE=db-event
+      - MONGO_USERNAME=admin
+      - MONGO_PASSWORD=admin
+      - MONGO_AUTH_DB=admin
+      - TICKET_URL=${TICKET_URL}
+    depends_on:
+      - mongodb-event
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  mongodb-event:
+    image: "mongodb/mongodb-community-server:7.0.0-ubi8"
+    container_name: mongodb-event
+    ports:
+      - "27017:27017"
+    environment:
+      MONGODB_INITDB_ROOT_USERNAME: admin
+      MONGODB_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+volumes:
+  mongodb_data:

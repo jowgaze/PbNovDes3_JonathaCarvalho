@@ -1,0 +1,53 @@
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  ms-ticket:
+    build: .
+    container_name: ms-ticket
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - MONGO_HOST=mongodb-ticket
+      - MONG_PORT=27017
+      - MONGO_DATABASE=db-ticket
+      - MONGO_USERNAME=admin
+      - MONGO_PASSWORD=admin
+      - MONGO_AUTH_DB=admin
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - EVENT_URL=${EVENT_URL}
+    depends_on:
+      - mongodb-ticket
+      - rabbitmq
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  mongodb-ticket:
+    image: "mongodb/mongodb-community-server:7.0.0-ubi8"
+    container_name: mongodb-ticket
+    ports:
+      - "27017:27017"
+    environment:
+      MONGODB_INITDB_ROOT_USERNAME: admin
+      MONGODB_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  rabbitmq:
+    image: "rabbitmq:management-alpine"
+    container_name: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - app-network
+
+volumes:
+  mongodb_data:
