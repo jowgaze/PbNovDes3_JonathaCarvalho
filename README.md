@@ -1,8 +1,6 @@
-# Pb - Desafio 3
+# Gerenciamento de eventos e ingressos
 
-**Gerenciamento de eventos e ingressos**, uma aplicação desenvolvida com arquitetura de microsserviços. Este projeto está disponível online, rodando na AWS em instâncias EC2:
-- [Documentação Swagger: ms-event-management](http://3.20.203.38:8080/swagger-ui/index.html#/)
-- [Documentação Swagger: ms-ticket-management](http://3.19.219.171:8080/swagger-ui/index.html#/)
+Uma aplicação desenvolvida durante estagio na Compass Uol com arquitetura de microsserviços.
 
 ## Tecnologias Utilizadas
 
